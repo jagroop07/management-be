@@ -35,10 +35,10 @@ app.use(
 
 //routers
 app.use('/admin', adminRouter)
-app.use('/candidate', auth, upload.single('resume'), candidateRouter)
-app.use('/employee', auth, upload.single('profile'), employeeRouter)
-app.use('/attendance', auth, attendanceRouter)
-app.use('/leave', auth, upload.single('attachment'), leaveRouter)
+app.use('/candidate', upload.single('resume'), candidateRouter)
+app.use('/employee', upload.single('profile'), employeeRouter)
+app.use('/attendance', attendanceRouter)
+app.use('/leave', upload.single('attachment'), leaveRouter)
 
 //server
 const PORT = process.env.PORT
