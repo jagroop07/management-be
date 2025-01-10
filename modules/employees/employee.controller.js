@@ -54,7 +54,6 @@ const updateEmployee = async (req, res) => {
     if (!id) {
       return res.json({ message: 'not found', success: false })
     }
-
     //only if the profile pic is present
     const updateData = req.file ? { ...data, profile: req.file.path } : data
 

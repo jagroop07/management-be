@@ -30,12 +30,12 @@ const registerLeave = async (req, res) => {
 
 const fetchLeaves = async (req, res) => {
   try {
-    const { date, search, filter } = req.query
+    const { date, search, filter } = req.body
 
     const pipeline = [
       {
         $lookup: {
-          from: 'employee',
+          from: 'employees',
           localField: 'empId',
           foreignField: '_id',
           as: 'employee'
@@ -67,7 +67,8 @@ const fetchLeaves = async (req, res) => {
           $or: [
             { 'employee.name': { $regex: search, $options: 'i' } },
             { 'employee.designation': { $regex: search, $options: 'i' } },
-            { status: { $regex: search, $options: 'i' } }
+            { status: { $regex: search, $options: 'i' } },
+            { reason: { $regex: search, $options: 'i' } }
           ]
         }
       })
@@ -75,7 +76,7 @@ const fetchLeaves = async (req, res) => {
 
     if (date) {
       const selectedDate = new Date(date)
-      selectedDate.setHours(0, 0, 0, 0) //setting time to zero so that only date should be compared
+      console.log(selectedDate)
       pipeline.push({
         $match: {
           leave_date: selectedDate

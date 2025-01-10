@@ -3,7 +3,7 @@ dotenv.config()
 const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
-const path = require('path')  
+const path = require('path')
 const { FRONTEND_URL } = require('./utils/constants')
 const DBConnect = require('./config/db.config')
 const upload = require('./utils/multer')
@@ -33,12 +33,17 @@ app.use(
   })
 )
 
+//verfication route
+app.get('/verification', (req, res) => {
+  return res.json({ message: 'admin verified successfully' })
+})
+
 //routers
 app.use('/admin', adminRouter)
-app.use('/candidate', upload.single('resume'), candidateRouter)
-app.use('/employee', upload.single('profile'), employeeRouter)
-app.use('/attendance', attendanceRouter)
-app.use('/leave', upload.single('attachment'), leaveRouter)
+app.use('/candidate', auth, upload.single('resume'), candidateRouter)
+app.use('/employee', auth, upload.single('profile'), employeeRouter)
+app.use('/attendance', auth, attendanceRouter)
+app.use('/leave', auth, upload.single('attachment'), leaveRouter)
 
 //server
 const PORT = process.env.PORT

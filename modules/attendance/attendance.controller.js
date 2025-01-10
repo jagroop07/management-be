@@ -7,7 +7,7 @@ const fetchAttendances = async (req, res) => {
     const pipeline = [
       {
         $lookup: {
-          from: 'employee',
+          from: 'employees',
           localField: 'empId',
           foreignField: '_id',
           as: 'employees'
@@ -53,8 +53,8 @@ const fetchAttendances = async (req, res) => {
     })
   } catch (error) {
     return res.status(500).json({
-      message: error.message || 'something went wrong',
-      success: false
+      success: false,
+      message: error.message || 'something went wrong'
     })
   }
 }

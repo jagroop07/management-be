@@ -92,19 +92,27 @@ const updateCandidate = async (req, res) => {
       { new: true }
     )
 
-    if (data?.status === 'Selected') {
+    if (updatedData?.status === 'Selected') {
       //adding selected employee
-      const employee = await employeeModel.create({
-        ...data,
-        joining_date: new Date()
-      })
+      const isExist = await employeeModel.findOne({ email: updatedData?.email })
 
-      //adding in attendance of active employee
-      await attendanceModel.create({
-        empId: employee._id,
-        task: '--',
-        status: 'Absent'
-      })
+      if (!isExist) {
+        const employee = await employeeModel.create({
+          name: updatedData?.name,
+          email: updatedData?.email,
+          phone_number: updatedData?.phone_number,
+          position: updatedData?.position,
+          department: 'Development', //adding default department and can be changes according to tne logic changes
+          joining_date: new Date()
+        })
+
+        //adding in attendance of active employee
+        await attendanceModel.create({
+          empId: employee._id,
+          task: '--',
+          status: 'Absent'
+        })
+      }
     }
 
     return res.json({

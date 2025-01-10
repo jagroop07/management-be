@@ -70,8 +70,8 @@ const login = async (req, res) => {
       })
   } catch (error) {
     res.json({
-      message: error || 'something went wrong',
-      status: 500,
+      message: error.message || 'something went wrong',
+      status: 400,
       success: false
     })
   }
@@ -87,9 +87,10 @@ const logout = async (req, res) => {
 
     res.status(200).json({ message: 'logged out', success: true })
   } catch (error) {
-    return res
-      .status(400)
-      .json({ message: 'something went wrong', success: false })
+    return res.status(400).json({
+      message: error.message || 'something went wrong',
+      success: false
+    })
   }
 }
 

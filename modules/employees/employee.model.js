@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const employeeSchema = new mongoose.Schema({
   profile: String,
   name: String,
-  email: String,
+  email: { type: String, unique: true },
   phone_number: Number,
   position: {
     type: String,

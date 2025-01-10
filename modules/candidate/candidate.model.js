@@ -4,9 +4,12 @@ const { getNxtSrNmbr } = require('../../utils/constants')
 const candidateSchema = new mongoose.Schema({
   sr_number: { type: Number, unique: true },
   name: String,
-  email: String,
+  email: { type: String, unique: true },
   phone_number: Number,
-  position: String,
+  position: {
+    type: String,
+    enum: ['Intern', 'Full Time', 'Junior', 'Senior', 'Team Lead']
+  },
   status: {
     type: String,
     enum: ['Scheduled', 'Ongoing', 'Selected', 'Rejected']
