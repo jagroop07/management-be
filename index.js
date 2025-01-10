@@ -35,7 +35,12 @@ app.use(
 
 //verfication route
 app.get('/verification', (req, res) => {
-  return res.json({ message: 'admin verified successfully' })
+  res.json({ message: 'admin verified successfully' })
+})
+
+//server message
+app.get('/', (req, res) => {
+  res.send('server is up')
 })
 
 //routers
