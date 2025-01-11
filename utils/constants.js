@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-const FRONTEND_URL = 'http://localhost:3000'
+const FRONTEND_URL = 'https://management-six-psi.vercel.app'
 
 //token generator
 const assignToken = async id => {
