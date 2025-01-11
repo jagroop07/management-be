@@ -92,7 +92,7 @@ const updateCandidate = async (req, res) => {
       { new: true }
     )
 
-    if (updatedData?.status === 'Selected') {
+    if (data?.status === 'Selected') {
       //adding selected employee
       const isExist = await employeeModel.findOne({ email: updatedData?.email })
 
