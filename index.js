@@ -34,7 +34,7 @@ app.use(
 )
 
 //verfication route
-app.get('/verification', (req, res) => {
+app.get('/verification', auth, (req, res) => {
   res.json({ message: 'admin verified successfully' })
 })
 
