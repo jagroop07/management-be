@@ -51,7 +51,7 @@ const login = async (req, res) => {
     }
     const cmpass = bcrypt.compareSync(password, admin?.password)
     if (!cmpass) {
-      throw 'incorrect password'
+      return res.json({ message: 'incorrect password', success: false })
     }
 
     const token = await assignToken({ id: admin._id })
@@ -65,7 +65,6 @@ const login = async (req, res) => {
       })
       .json({
         message: 'login successfully',
-        status: 200,
         success: true
       })
   } catch (error) {
